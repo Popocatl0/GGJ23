@@ -9,13 +9,13 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public int currentHealth {get; private set;}
-    ShipController  controller;
+    PlayerController  controller;
 
     /// <summary>
     /// Assign a ship 
     /// </summary>
     /// <param name="_controller"></param>
-    public void SetController(ShipController _controller){
+    public void SetController(PlayerController _controller){
         controller = _controller;
         currentHealth = controller.Data.maxLife;
     }
@@ -37,9 +37,11 @@ public class Health : MonoBehaviour
         UIManager.Instance.UpdateHealth(controller.ID, currentHealth, controller.Data.maxLife);
         if(currentHealth <= 0){
             controller.SetEnabled(false);
-            controller.Animator.SetBool("expl", true);
+            //controller.Animator.SetBool("expl", true);
+            //Death feedback
             return true;
         }
+        //damage feedback
         return false;
     }
 }

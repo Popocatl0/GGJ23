@@ -24,11 +24,8 @@ public class UIManager : MonoBehaviour{
     public Transform WindImg;
 
     public BarItem[] HealthBars, BoostBars;
-    public ScoreItem[] ScoreText;
 
     Dictionary<string, BarItem> HealthHash, BoostHash;
-
-    Dictionary<string, ScoreItem> ScoreHash;
 
 
     /// <summary>
@@ -37,15 +34,11 @@ public class UIManager : MonoBehaviour{
     void Start(){
         HealthHash = new Dictionary<string, BarItem>();
         BoostHash = new Dictionary<string, BarItem>();
-        ScoreHash = new Dictionary<string, ScoreItem>();
         for (int i = 0; i < HealthBars.Length; i++){
             HealthHash.Add(HealthBars[i].ID, HealthBars[i]);
         }
         for (int i = 0; i < BoostBars.Length; i++){
             BoostHash.Add(BoostBars[i].ID, BoostBars[i]);
-        }
-        for (int i = 0; i < ScoreText.Length; i++){
-            ScoreHash.Add(ScoreText[i].ID, ScoreText[i]);
         }
     }
     /// <summary>
@@ -151,9 +144,7 @@ public class UIManager : MonoBehaviour{
     /// <param name="id"></param>
     /// <param name="val"></param>
     public void UpdateScore(string id, int val){
-        if(ScoreHash.ContainsKey(id)){
-            ScoreHash[id].UpdateScore(val);
-        }
+       
     }
     /// <summary>
     /// Update the wind indicator

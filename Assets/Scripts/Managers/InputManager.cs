@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 /// <summary>
-/// Handle the inputs and trigger the actions for the ShipController
+/// Handle the inputs and trigger the actions for the PlayerController
 /// </summary>
 public class InputManager : MonoBehaviour{
-    //public enum InputType { Player, AI}
-    //InputType type = InputType.Player;
-    public ShipController controller{ get; private set;}
+    public PlayerController controller{ get; private set;}
 
     #region INPUT_VALUES
     public Vector2 movement {get; private set;}
     public bool isFire {get; private set;}
-    public bool isBoost {get; private set;}
     #endregion
 
     #region  INPUT_ACTIONS
@@ -21,14 +18,13 @@ public class InputManager : MonoBehaviour{
     private InputActionMap playerControls;
     private InputAction inputMovement;
     private InputAction inputFire;
-    //private InputAction inputBoost;
     #endregion
 
     /// <summary>
     /// Assign a ship
     /// </summary>
     /// <param name="_controller"></param>
-    public void SetController(ShipController _controller){
+    public void SetController(PlayerController _controller){
         controller = _controller;
         SetInputs();
     }
@@ -41,46 +37,28 @@ public class InputManager : MonoBehaviour{
         playerControls = inputAsset.FindActionMap(controller.ID);
         inputMovement = playerControls.FindAction("Turn");
         inputFire = playerControls.FindAction("Fire");
-        //inputBoost = playerControls.FindAction("Boost");
 
-        inputMovement.performed += context => OnTurn(context.ReadValue<Vector2>());
+        inputMovement.performed += context => OnMove(context.ReadValue<Vector2>());
         inputFire.performed += context => OnFire(context.performed);
-        //inputBoost.started += context => OnBoost(context.started);
 
-        inputMovement.canceled += context => OnTurn(context.ReadValue<Vector2>());
+
+        inputMovement.canceled += context => OnMove(context.ReadValue<Vector2>());
         inputFire.canceled += context => OnFire(context.performed);
 
         playerControls.Enable();
     }
 
-    /// <summary>
-    /// Set if the inputs are get by a player controls or a AI
-    /// </summary>
-    /// <param name="_type"></param>
-    /*public void SetType(InputType _type){
-        type = _type;
-        switch (type) {
-            default:
-            case InputType.Player:
-                playerControls.Enable();
-                break;
-            case InputType.AI:
-                playerControls.Disable();
-                break;
-        }
-    }*/
     public void OnFire(bool val){
+        Debug.Log("pressed");
         isFire = val;
         controller.UpdateInput();
     }
-    public void OnTurn(Vector2 dir){
+    public void OnMove(Vector2 dir){
+        Debug.Log("dir " + dir);
         movement = dir;
         controller.UpdateInput();
     }
-
-    public void OnBoost(bool val){
-        isBoost = val;
-        controller.UpdateInput();
-        isBoost = false;
+    void OnTurndd(InputValue val){
+        Debug.Log("dir " + val.Get<Vector2>());
     }
 }

@@ -11,7 +11,7 @@ public class BulletItem : MonoBehaviour{
     public float lifeDistance;
     Rigidbody2D rigbody;
 
-    public delegate void OnCollisionDelegate(BulletItem item, ShipController target);
+    public delegate void OnCollisionDelegate(BulletItem item, PlayerController target);
     public OnCollisionDelegate onCollision;
 
     float lifeTimer;
@@ -36,10 +36,7 @@ public class BulletItem : MonoBehaviour{
     /// Change the direction by wind influence
     /// </summary>
     void ModifyTrayectory(){
-        if(WindManager.Instance.Direction.magnitude > 0){
-            rigbody.velocity =  Vector2.Lerp(rigbody.velocity, rigbody.velocity + WindManager.Instance.Direction, 0.05f);
-            this.transform.up = -rigbody.velocity.normalized;
-        }
+        
     }
     /// <summary>
     /// Initialize the direction and speed
@@ -59,7 +56,7 @@ public class BulletItem : MonoBehaviour{
     /// <param name="other"></param>
     void OnTriggerEnter2D(Collider2D other){
         if(other.tag == "Player"){
-            onCollision(this, other.GetComponent<ShipController>());
+            onCollision(this, other.GetComponent<PlayerController>());
         }
     }
 }

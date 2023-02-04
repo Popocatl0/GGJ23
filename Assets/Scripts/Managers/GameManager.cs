@@ -6,8 +6,8 @@ using UnityEngine;
 /// Handle the Core Game Loop
 /// </summary>
 public class GameManager : MonoBehaviour{
-    ShipController[] players;
-    ShipEnemy enemy;
+    PlayerController[] players;
+    //ShipEnemy enemy;
     static GameManager _instance;
     public static GameManager Instance{
         get{
@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour{
     /// Search the players and enemy AI
     /// </summary>
     void Start(){
-        enemy = FindObjectOfType<ShipEnemy>();
-        players = FindObjectsOfType<ShipController>();
+        //enemy = FindObjectOfType<ShipEnemy>();
+        players = FindObjectsOfType<PlayerController>();
         for (int i = 0; i < players.Length; i++){
             players[i].SetEnabled(false);
         }
@@ -37,11 +37,9 @@ public class GameManager : MonoBehaviour{
     /// <param name="val"></param>
     public void StartMatch(bool val){
         for (int i = 0; i < players.Length; i++){
-            players[i].ResetObject(true);
-            players[i].Score.ResetPoints();
+            players[i].ResetObject();
         }
-        WindManager.Instance.Init();
-        enemy.SetEnemy(val);
+        //enemy.SetEnemy(val);
     }
     /// <summary>
     /// Restart the match after one of the players is death
@@ -57,7 +55,7 @@ public class GameManager : MonoBehaviour{
     IEnumerator Restart(float delay){
         yield return new WaitForSeconds(delay);
         for (int i = 0; i < players.Length; i++){
-            players[i].ResetObject( !players[i].gameObject.activeSelf );
+            players[i].ResetObject();
         }
     }
     /// <summary>
@@ -65,10 +63,8 @@ public class GameManager : MonoBehaviour{
     /// </summary>
     public void ResetMatch(){
         for (int i = 0; i < players.Length; i++){
-            players[i].ResetObject(true);
-            players[i].Score.ResetPoints();
+            players[i].ResetObject();
         }
-        WindManager.Instance.Init();
     }
     /// <summary>
     /// Pause the players actions
@@ -77,7 +73,6 @@ public class GameManager : MonoBehaviour{
         foreach (var player in players){
             player.SetEnabled(false);
         }
-        WindManager.Instance.Stop();
     }
     /// <summary>
     /// Resume the players actions
@@ -86,6 +81,5 @@ public class GameManager : MonoBehaviour{
          foreach (var player in players){
             player.SetEnabled(true);
         }
-        WindManager.Instance.Play();
     }
 }
