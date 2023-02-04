@@ -14,11 +14,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] string _id;
     [SerializeField] PlayerData _data;
     [SerializeField] InputManager _input;
+    [SerializeField] Transform _carryPos;
     public Rigidbody2D Rigbody {get; private set;}
     public Collider2D Collider {get; private set;}
-    public Animator Animator {get; private set;}
     public Health Health {get; private set;}
+    public PlayerTarget Target {get; private set;}
     public SpriteRenderer Render {get; private set;}
+    public Animator Animator {get; private set;}
     public bool isEnabled {get; private set;}
     public Vector2 currentDir {get; set;}
 
@@ -33,6 +35,9 @@ public class PlayerController : MonoBehaviour
     public String ID{
         get{ return _id;}
     }
+    public Transform CarryPos{
+        get{ return _carryPos;}
+    }
     #endregion
 
     EntityAction[] actions;
@@ -41,9 +46,10 @@ public class PlayerController : MonoBehaviour
         Rigbody = GetComponent<Rigidbody2D>();
         Health = GetComponent<Health>();
         Collider = GetComponent<Collider2D>();
-        Animator = GetComponent<Animator>();
-        Render = GetComponent<SpriteRenderer>();
-        currentDir = Vector2.zero;
+        Target = GetComponentInChildren<PlayerTarget>();
+        Animator = GetComponentInChildren<Animator>();
+        Render = GetComponentInChildren<SpriteRenderer>();
+        currentDir = Vector2.right;
 
         actions = GetComponents<EntityAction>();
         foreach(var act in actions){
@@ -52,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
         _input.SetController(this);
         Health.SetController(this);
+        Target.SetController(this);
 
         SetEnabled();
     }

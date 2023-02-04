@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
     using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class EntityMovement : EntityAction{
     /// </summary>
     public override void BeginAction(){
         direction = controller.Input.movement;
+        if(direction != Vector2.zero) controller.currentDir= direction.normalized;
     }
     /// <summary>
     /// Called every cycle in FixedUpdate
@@ -38,6 +40,7 @@ public class EntityMovement : EntityAction{
     void Move(){
         direction = controller.Input.movement;
         controller.Rigbody.velocity = direction.normalized * controller.Data.maxSpeed;
+        if(direction != Vector2.zero) controller.currentDir= direction.normalized;
         //TURN SPRITE
     }
 

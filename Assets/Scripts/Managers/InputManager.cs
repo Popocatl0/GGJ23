@@ -49,16 +49,11 @@ public class InputManager : MonoBehaviour{
     }
 
     public void OnFire(bool val){
-        Debug.Log("pressed");
         isFire = val;
         controller.UpdateInput();
     }
     public void OnMove(Vector2 dir){
-        Debug.Log("dir " + dir);
         movement = dir;
         controller.UpdateInput();
-    }
-    void OnTurndd(InputValue val){
-        Debug.Log("dir " + val.Get<Vector2>());
     }
 }
