@@ -5,22 +5,22 @@ using UnityEngine.Pool;
 
 
 public class BombPool : MonoBehaviour {
-    [SerializeField] BulletItem bulletItem;
+    [SerializeField] BombItem bulletItem;
     public int maxPoolSize;
-    Stack<BulletItem> bulletPool;
+    Stack<BombItem> bulletPool;
 
     public void Init(){
-        bulletPool = new Stack<BulletItem>(maxPoolSize);
+        bulletPool = new Stack<BombItem>(maxPoolSize);
     }
 
     /// <summary>
     /// Get one bullet from the pool or create new one
     /// </summary>
-    BulletItem GetBullet(){
-        BulletItem bullet;
+    public BombItem GetBullet(){
+        BombItem bullet;
         if(!bulletPool.TryPop(out bullet)){
             bullet = Instantiate(bulletItem);
-            bullet.onCollision += OnBulletCollision;
+            bullet.onDestroyCollision += OnBombDestroy;
         }
         return bullet;
         //bullet.Set(controller.currentDir, shootPos.position);
@@ -32,13 +32,8 @@ public class BombPool : MonoBehaviour {
     /// </summary>
     /// <param name="bullet"></param>
     /// <param name="target"></param>
-    void OnBulletCollision(BulletItem bullet, PlayerController target){
+    void OnBombDestroy(BombItem bullet, PlayerController target){
         bulletPool.Push(bullet);
-        /*if(target == controller) return;
-        bullet.gameObject.SetActive(false);
-        if(target != null && target.Health.Damage(1)){
-            controller.Score.AddPoint();
-        }*/
     }
     
         

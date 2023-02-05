@@ -8,8 +8,7 @@ using UnityEngine.Pool;
 /// </summary>
 public class EntityAttack : EntityAction {
     //[SerializeField] BulletItem bulletItem;//carry item
-    GameObject carryObj;
-
+    CarryItem carryObj;
      public override void Init(PlayerController _contr){
         base.Init(_contr);
         carryObj = null;
@@ -22,15 +21,30 @@ public class EntityAttack : EntityAction {
         if(controller.Input.isFire)
             Shoot();
     }
+    public override void StopAction(){
+        base.StopAction();
+        if (carryObj.GetType() == typeof(BombItem)) {
+            ((BombItem)carryObj).DisableBomb();
+        }
+        else if (carryObj.GetType() == typeof(BarrierItem)){
+            carryObj.OnSet(controller);
+        }
+        carryObj = null;
+    }
     /// <summary>
     /// Check the timer and shoot one bullet from the pool
     /// </summary>
     void Shoot(){
-        if(carryObj == null && controller.Target.target != null){
-            Debug.Log("Carry and OBJ");
-            carryObj = controller.Target.target;//get Obj
+        if (carryObj == null && controller.Target.target != null) {
+            carryObj = controller.Target.target.OnCarry();
+            if (carryObj != null) carryObj.Init(controller.CarryPos);
         }
-        //if carry = bomb  throw on direction
-        //if barrier = set on target
+        else if (carryObj != null && controller.Target.target == null){
+            carryObj.OnSet(controller);
+            carryObj = null;
+        }
+        else if(carryObj != null && controller.Target.target != null){
+            carryObj.OnCharge(controller.Target.target);
+        }
     }
 }

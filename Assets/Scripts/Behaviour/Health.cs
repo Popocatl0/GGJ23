@@ -34,7 +34,8 @@ public class Health : MonoBehaviour
     /// <returns>Is death or not</returns>
     public bool Damage(int damage){
         currentHealth -= damage;
-        UIManager.Instance.UpdateHealth(controller.ID, currentHealth, controller.Data.maxLife);
+        controller.StopAction();
+        //UIManager.Instance.UpdateHealth(controller.ID, currentHealth, controller.Data.maxLife);
         if(currentHealth <= 0){
             controller.SetEnabled(false);
             //controller.Animator.SetBool("expl", true);

@@ -69,10 +69,17 @@ public class PlayerController : MonoBehaviour
     /// <param name="val"></param>
     public void SetEnabled(bool val=true){
         isEnabled = val;
+        Rigbody.velocity = Vector2.zero;
         Collider.enabled = val;
         foreach(var act in actions){
             act.SetActive(val);
             if(!val) act.StopAction();
+        }
+    }
+    public void StopAction()
+    {
+        foreach (var act in actions){
+            act.StopAction();
         }
     }
     /// <summary>
