@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class BarItem : MonoBehaviour
 {
     public string ID;
-    public Slider fillBar;
+    public Image[] fillBar;
 
-    public void UpdateBar(float value, float maxVal){
-        fillBar.value = value/maxVal;
+    public void UpdateBar(int value, int maxVal){
+        //fillBar.value = value/maxVal;
+        for (int i = 0; i < fillBar.Length; i++){
+            fillBar[i].enabled = i < value;
+        }
     }
 }

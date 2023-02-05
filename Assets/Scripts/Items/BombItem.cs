@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class BombItem : CarryItem{
     public LayerMask m_LayerMask;
     Rigidbody2D rigbody;
     Collider2D colliderBomb;
+    TextMeshPro counter;
 
     const int initBounce = 2;
     int currentBounce;
@@ -29,6 +31,7 @@ public class BombItem : CarryItem{
     void Awake(){
         rigbody = GetComponent<Rigidbody2D>();
         colliderBomb = GetComponent<Collider2D>();
+        counter = GetComponentInChildren<TextMeshPro>();
     }
     /// <summary>
     /// Check its life time and destroy it
@@ -38,9 +41,10 @@ public class BombItem : CarryItem{
         if(lifeTimer > 0){
             lifeTimer -= Time.deltaTime;
         }
-        if(lifeTimer <= 0){
+        else if(lifeTimer <= 0){
             DelayExplode();
         }
+        counter.text = Mathf.Ceil(lifeTimer).ToString("00");
 
         if(currentBounce >= maxBounce){
             if(stopTime > 0){

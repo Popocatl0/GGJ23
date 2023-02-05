@@ -21,11 +21,10 @@ public class UIManager : MonoBehaviour{
         }
     }
     public CanvasGroup Menu, Game, Pause;
-    public Transform WindImg;
 
-    public BarItem[] HealthBars, BoostBars;
+    public BarItem[] HealthBars;
 
-    Dictionary<string, BarItem> HealthHash, BoostHash;
+    Dictionary<string, BarItem> HealthHash;
 
 
     /// <summary>
@@ -33,12 +32,8 @@ public class UIManager : MonoBehaviour{
     /// </summary>
     void Start(){
         HealthHash = new Dictionary<string, BarItem>();
-        BoostHash = new Dictionary<string, BarItem>();
         for (int i = 0; i < HealthBars.Length; i++){
             HealthHash.Add(HealthBars[i].ID, HealthBars[i]);
-        }
-        for (int i = 0; i < BoostBars.Length; i++){
-            BoostHash.Add(BoostBars[i].ID, BoostBars[i]);
         }
     }
     /// <summary>
@@ -121,36 +116,9 @@ public class UIManager : MonoBehaviour{
     /// <param name="id"></param>
     /// <param name="val"></param>
     /// <param name="max"></param>
-    public void UpdateHealth(string id, float val, float max){
+    public void UpdateHealth(string id, int val, int max){
         if(HealthHash.ContainsKey(id)){
             HealthHash[id].UpdateBar(val, max);
         }
-    }
-    /// <summary>
-    /// Update the boots bar of its respective player
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="val"></param>
-    /// <param name="max"></param>
-    public void UpdateBoost(string id, float val, float max){
-        if(HealthHash.ContainsKey(id)){
-            BoostHash[id].UpdateBar(val, max);
-        }
-    }
-
-    /// <summary>
-    /// Update the score text of its respective player
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="val"></param>
-    public void UpdateScore(string id, int val){
-       
-    }
-    /// <summary>
-    /// Update the wind indicator
-    /// </summary>
-    /// <param name="wind"></param>
-    public void UpdateWind(Vector2 wind){
-        WindImg.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, wind.normalized));
     }
 }
