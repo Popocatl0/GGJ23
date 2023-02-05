@@ -23,6 +23,7 @@ public class EntityAttack : EntityAction {
     }
     public override void StopAction(){
         base.StopAction();
+        if (carryObj == null) return;
         if (carryObj.GetType() == typeof(BombItem)) {
             ((BombItem)carryObj).DisableBomb();
         }

@@ -17,7 +17,11 @@ public class Floweritem : CarryItem{
         //else feedback
     }
     public override CarryItem OnCarry(){
-        if (timer <= 0) return pool.GetBullet();
+        if (timer <= 0){
+            timer = TimeRespawn;
+            //feedback;
+            return pool.GetBullet();
+        }
         else return null;
     }
 
