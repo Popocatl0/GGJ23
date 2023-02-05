@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 /// <summary>
 /// Handle the speed,direction and collision of the bullet 
@@ -12,6 +13,9 @@ public class BombItem : CarryItem{
     public float lifeCarry;
     public int explodeSize;
     public LayerMask m_LayerMask;
+    public GameObject explosion;
+    public MMFeedbacks hitWallFeedback;
+    public MMFeedbacks explodeFeedback;
     Rigidbody2D rigbody;
     Collider2D colliderBomb;
     TextMeshPro counter;
@@ -23,6 +27,7 @@ public class BombItem : CarryItem{
     Vector2 lastVelocity;
     float stopTime = 0;
     bool canHit = false;
+    bool isexplode = false;
 
     public delegate void OnCollisionDelegate(BombItem item, PlayerController target);
     public OnCollisionDelegate onDestroyCollision;
@@ -32,12 +37,14 @@ public class BombItem : CarryItem{
         rigbody = GetComponent<Rigidbody2D>();
         colliderBomb = GetComponent<Collider2D>();
         counter = GetComponentInChildren<TextMeshPro>();
+        explosion.SetActive(false);
     }
     /// <summary>
     /// Check its life time and destroy it
     ///
     /// </summary>
     void Update(){
+        if(isexplode) return;
         if(lifeTimer > 0){
             lifeTimer -= Time.deltaTime;
         }
@@ -71,6 +78,8 @@ public class BombItem : CarryItem{
         stopTime = 0;
         maxBounce = initBounce;
         canHit = false;
+        isexplode = false;
+        explosion.SetActive(false);
         if(lifeTimer <= 0)
             lifeTimer = lifeCarry;
     }
@@ -102,9 +111,11 @@ public class BombItem : CarryItem{
     void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.tag == "Player" && rigbody.velocity.magnitude > 0 && canHit){
             other.gameObject.GetComponent<PlayerController>().Health.Damage(1);
+            canHit = false;
             SimpleExplode();
         }
         else if(other.gameObject.tag == "Wall"){
+            hitWallFeedback.PlayFeedbacks(other.contacts[0].point);
             if (currentBounce >= maxBounce){
                 rigbody.velocity = Vector2.zero;
                 lastVelocity = rigbody.velocity;
@@ -158,10 +169,9 @@ public class BombItem : CarryItem{
         lifeTimer = 0;
         colliderBomb.enabled = false;
         this.transform.parent = null;
-        //call feedback
-        //delay
-        this.gameObject.SetActive(false);
-        onDestroyCollision(this, null);
+        isexplode = true;
+        explosion.SetActive(true);
+        explodeFeedback.PlayFeedbacks();
     }
 
     void DelayExplode(){
@@ -169,7 +179,7 @@ public class BombItem : CarryItem{
         lifeTimer = 0;
         colliderBomb.enabled = false;
         this.transform.parent = null;
-
+        isexplode = true;
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(gameObject.transform.position, Vector2.one * this.explodeSize, 0, m_LayerMask);
         for (int i = 0; i < hitColliders.Length; i++){
             if (hitColliders[i].gameObject.tag == "Player"){
@@ -177,10 +187,8 @@ public class BombItem : CarryItem{
                 break;
             }
         }
-        //feedback
-        //delay
-        this.gameObject.SetActive(false);
-        onDestroyCollision(this, null);
+        explosion.SetActive(true);
+        explodeFeedback.PlayFeedbacks();
     }
 
     private void OnDrawGizmos()

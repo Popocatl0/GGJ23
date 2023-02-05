@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour{
     PlayerController[] players;
+    public Transform[] InitPos;
     //ShipEnemy enemy;
     static GameManager _instance;
     public static GameManager Instance{
@@ -29,7 +30,9 @@ public class GameManager : MonoBehaviour{
         players = FindObjectsOfType<PlayerController>();
         for (int i = 0; i < players.Length; i++){
             players[i].SetEnabled(false);
+            players[i].transform.position = InitPos[i].position;
         }
+        StartMatch(true);
     }
     /// <summary>
     /// Start a new match, with new score
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour{
     public void StartMatch(bool val){
         for (int i = 0; i < players.Length; i++){
             players[i].ResetObject();
+            players[i].transform.position = InitPos[i].position;
         }
         //enemy.SetEnemy(val);
     }
@@ -56,6 +60,7 @@ public class GameManager : MonoBehaviour{
         yield return new WaitForSeconds(delay);
         for (int i = 0; i < players.Length; i++){
             players[i].ResetObject();
+            players[i].transform.position = InitPos[i].position;
         }
     }
     /// <summary>
@@ -64,6 +69,7 @@ public class GameManager : MonoBehaviour{
     public void ResetMatch(){
         for (int i = 0; i < players.Length; i++){
             players[i].ResetObject();
+            players[i].transform.position = InitPos[i].position;
         }
     }
     /// <summary>

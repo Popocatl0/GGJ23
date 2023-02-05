@@ -2,12 +2,14 @@ using System.Security.Cryptography;
     using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
 
 /// <summary>
 /// Class that handle the ship's inertia and maximum speed
 /// </summary>
 public class EntityMovement : EntityAction{
     Vector2 direction;
+    public MMFeedbacks walkFeedback;
     public override void Init(PlayerController _contr)
     {
         base.Init(_contr);
@@ -40,8 +42,11 @@ public class EntityMovement : EntityAction{
     void Move(){
         direction = controller.Input.movement;
         controller.Rigbody.velocity = direction.normalized * controller.Data.maxSpeed;
-        if(direction != Vector2.zero) controller.currentDir= direction.normalized;
-        //TURN SPRITE
+        if(direction != Vector2.zero){
+            controller.currentDir= direction.normalized;
+            walkFeedback.PlayFeedbacks();
+        } 
+        controller.Render.flipX = direction.x > 0;
     }
 
     /*public void BeginTurn(){

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 
@@ -10,6 +11,8 @@ public class Health : MonoBehaviour
 {
     public int currentHealth {get; private set;}
     PlayerController  controller;
+    public MMFeedbacks damageFeedback;
+    public  MMFeedbacks deathFeedback;
 
     /// <summary>
     /// Assign a ship 
@@ -34,15 +37,16 @@ public class Health : MonoBehaviour
     /// <returns>Is death or not</returns>
     public bool Damage(int damage){
         currentHealth -= damage;
+        Debug.Log(currentHealth);
         controller.StopAction();
         UIManager.Instance.UpdateHealth(controller.ID, currentHealth, controller.Data.maxLife);
         if(currentHealth <= 0){
             controller.SetEnabled(false);
-            //controller.Animator.SetBool("expl", true);
-            //Death feedback
+            deathFeedback.PlayFeedbacks();
+            UIManager.Instance.VictoryGame();
             return true;
         }
-        //damage feedback
+        damageFeedback.PlayFeedbacks();
         return false;
     }
 }

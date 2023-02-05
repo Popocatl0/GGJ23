@@ -59,8 +59,6 @@ public class PlayerController : MonoBehaviour
         _input.SetController(this);
         Health.SetController(this);
         Target.SetController(this);
-
-        SetEnabled();
     }
 
     /// <summary>
@@ -71,6 +69,7 @@ public class PlayerController : MonoBehaviour
         isEnabled = val;
         Rigbody.velocity = Vector2.zero;
         Collider.enabled = val;
+        Animator.Play("Idle");
         foreach(var act in actions){
             act.SetActive(val);
             if(!val) act.StopAction();

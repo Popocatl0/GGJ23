@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour{
             return _instance;
         }
     }
-    public CanvasGroup Menu, Game, Pause;
+    public CanvasGroup Victory;
 
     public BarItem[] HealthBars;
 
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour{
     /// <summary>
     /// Initialize de UI elements Dictionaries
     /// </summary>
-    void Start(){
+    void Awake(){
         HealthHash = new Dictionary<string, BarItem>();
         for (int i = 0; i < HealthBars.Length; i++){
             HealthHash.Add(HealthBars[i].ID, HealthBars[i]);
@@ -70,42 +70,21 @@ public class UIManager : MonoBehaviour{
     /// </summary>
     /// <param name="ai"></param>
     public void StartGame(bool ai){
-        StartCoroutine(Fade(Menu, 0.5f, 0));
-        StartCoroutine(Fade(Game, 0.5f, 1));
+        StartCoroutine(Fade(Victory, 0.5f, 0));
         GameManager.Instance.StartMatch(ai);
-    }
-    /// <summary>
-    /// Set the pause screen
-    /// </summary>
-    public void PauseGame(){
-        StartCoroutine(Fade(Game, 0.5f, 0));
-        StartCoroutine(Fade(Pause, 0.5f, 1));
-        GameManager.Instance.Pause();
-    }
-    /// <summary>
-    /// Resume the game screen after a pause
-    /// </summary>
-    public void ResumeGame(){
-        StartCoroutine(Fade(Pause, 0.5f, 0));
-        StartCoroutine(Fade(Game, 0.5f, 1));
-        StartCoroutine(RunEvent(GameManager.Instance.Resume, 0.5f));
-    }
-    /// <summary>
-    /// Back to the Main Menu 
-    /// </summary>
-    public void BackMenu(){
-        StartCoroutine(Fade(Pause, 0.5f, 0));
-        StartCoroutine(Fade(Menu, 0.5f, 1));
     }
     /// <summary>
     /// Resume the game screen with a reseted match
     /// </summary>
     public void ResetGame(){
-        StartCoroutine(Fade(Pause, 0.5f, 0));
-        StartCoroutine(Fade(Game, 0.5f, 1));
+        StartCoroutine(Fade(Victory, 0.5f, 0));
         StartCoroutine(RunEvent(GameManager.Instance.ResetMatch, 0.5f));
     }
 
+
+    public void VictoryGame(){
+        StartCoroutine(Fade(Victory, 0.5f, 1));
+    }
     public void CloseGame(){
         Application.Quit();
     }
