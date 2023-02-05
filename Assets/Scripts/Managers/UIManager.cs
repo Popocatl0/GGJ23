@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour{
         }
     }
     public CanvasGroup Victory;
+    public CanvasGroup StartCAnvas;
 
     public BarItem[] HealthBars;
 
@@ -69,9 +70,10 @@ public class UIManager : MonoBehaviour{
     /// Set the game screen
     /// </summary>
     /// <param name="ai"></param>
-    public void StartGame(bool ai){
+    public void StartGame(){
         StartCoroutine(Fade(Victory, 0.5f, 0));
-        GameManager.Instance.StartMatch(ai);
+        StartCoroutine(Fade(StartCAnvas, 0.5f, 0));
+        GameManager.Instance.StartMatch(true);
     }
     /// <summary>
     /// Resume the game screen with a reseted match

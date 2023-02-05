@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour{
             players[i].SetEnabled(false);
             players[i].transform.position = InitPos[i].position;
         }
-        StartMatch(true);
+        //StartMatch(true);
     }
     /// <summary>
     /// Start a new match, with new score

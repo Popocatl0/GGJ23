@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1438001205656308692}
   - component: {fileID: 5688823120230064940}
   - component: {fileID: 1216293287243812991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ExplosionFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2672339026207847143}
   - component: {fileID: 4293185972009959342}
   - component: {fileID: 2712830525704497572}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &2712830525704497572
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -288,7 +288,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5490781847530960163
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306633640957363853}
   - component: {fileID: 4344667005909083864}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 9205256681197627480}
   - component: {fileID: 1492751974702437502}
   - component: {fileID: 1727865171803993911}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChoqueFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 6668613063432185439}
   - component: {fileID: 6668613063432185436}
   - component: {fileID: 6668613063432185432}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,11 +689,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifeCarry: 20
+  lifeCarry: 15
   explodeSize: 4
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 832
   explosion: {fileID: 6993979177105517446}
   hitWallFeedback: {fileID: 1492751974702437502}
   explodeFeedback: {fileID: 1438001205656308692}
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 8603198694407706929}
   - component: {fileID: 2093274062483100631}
   - component: {fileID: 2122136841213232568}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,7 +784,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &2122136841213232568
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -801,7 +801,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7083861852186208493
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ GameObject:
   - component: {fileID: 9080483358644187282}
   - component: {fileID: 105962842844749030}
   - component: {fileID: 4261051556432887174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,15 +829,15 @@ RectTransform:
   m_GameObject: {fileID: 7083861852186208493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6668613063432185433}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.682}
+  m_AnchoredPosition: {x: 0, y: 0.77}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &105962842844749030
@@ -911,8 +911,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280822015
-  m_fontColor: {r: 1, g: 0.15566039, b: 0.15566039, a: 1}
+    rgba: 4279308561
+  m_fontColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 4703751477622423357}
   - component: {fileID: 1816871315530543469}
   - component: {fileID: 3269034494780616140}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Choque
   m_TagString: Untagged
   m_Icon: {fileID: 0}
